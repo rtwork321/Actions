@@ -50,9 +50,18 @@ jobs:
         needs: [deploy-to-dev]
         steps:
           - name: Checkout repository
-            uses: actions/checkout@v2
-          - name: Run tests on development environment
-            run: |
+            uses: actions/checkout@v3.5.2
+          - name: Clone course-js-api-framework repository
+            uses: actions/checkout@v3.5.2
+            with:
+              repository: rtwork321/course-js-api-framework
+              path: course-js-api-framework
+          - name: Install dependencies
+            run: npm install
+            working-directory: course-js-api-framework
+          - name: Run tests
+            run: npm run greetings greetings_dev
+            working-directory: course-js-api-framework
         
     deploy-to-staging:
         name: Deploy to Staging
