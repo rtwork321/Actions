@@ -9,7 +9,7 @@ jobs:
         name: Install Pip Dependencies
         runs-on: self-hosted
         steps:
-          - uses: ./.github/act/install
+          - uses: ./.github/act/install/install.yml
 
     deploy-to-dev:
         name: Deploy to Development
