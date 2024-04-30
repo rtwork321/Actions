@@ -1,0 +1,24 @@
+name: Install Pip Dependencies
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  install-pip-deps:
+    name: Install Pip Dependencies
+    runs-on: self-hosted
+    steps:
+      - name: Checkout delivery pipeline definition
+        uses: actions/checkout@v3.5.2
+
+      - name: Checkout python-greetings repository
+        uses: actions/checkout@v3.5.2
+        with:
+          repository: rtwork321/python-greetings
+          path: python-greetings
+
+      - name: Install pip dependencies
+        working-directory: python-greetings
+        run: |
+          pip3 install -r requirements.txt
