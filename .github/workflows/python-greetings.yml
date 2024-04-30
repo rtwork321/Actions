@@ -44,29 +44,29 @@ jobs:
             working-directory: python-greetings
           
 
-    # tests-on-dev:
-    #     name: Run Tests on Development
-    #     runs-on: self-hosted
-    #     needs: [deploy-to-dev]
-    #     steps:
-    #       - name: Checkout repository
-    #         uses: actions/checkout@v3.5.2
-    #       - name: Clone course-js-api-framework repository
-    #         uses: actions/checkout@v3.5.2
-    #         with:
-    #           repository: rtwork321/course-js-api-framework
-    #           path: course-js-api-framework
-    #       - name: Install dependencies
-    #         run: npm install
-    #         working-directory: course-js-api-framework
-    #       - name: Run tests
-    #         run: npm run greetings greetings_dev
-    #         working-directory: course-js-api-framework
+    tests-on-dev:
+        name: Run Tests on Development
+        runs-on: self-hosted
+        needs: [deploy-to-dev]
+        steps:
+          - name: Checkout repository
+            uses: actions/checkout@v3.5.2
+          - name: Clone course-js-api-framework repository
+            uses: actions/checkout@v3.5.2
+            with:
+              repository: rtwork321/course-js-api-framework
+              path: course-js-api-framework
+          - name: Install dependencies
+            run: npm install
+            working-directory: course-js-api-framework
+          - name: Run tests
+            run: npm run greetings greetings_dev
+            working-directory: course-js-api-framework
         
     deploy-to-staging:
         name: Deploy to Staging
         runs-on: self-hosted
-        # needs: [tests-on-dev]
+        needs: [tests-on-dev]
         steps:
           - name: Checkout repository
             uses: actions/checkout@v2
