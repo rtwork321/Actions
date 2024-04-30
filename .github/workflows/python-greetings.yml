@@ -39,7 +39,7 @@ jobs:
             working-directory: python-greetings
           - name: Start development environment
             run: |
-              PORT=7001
+              $env:PORT = 7001
               pm2 start app.py --name greetings-app-dev
             working-directory: python-greetings
           
