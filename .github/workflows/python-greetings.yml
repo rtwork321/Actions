@@ -69,9 +69,21 @@ jobs:
         needs: [tests-on-dev]
         steps:
           - name: Checkout repository
-            uses: actions/checkout@v2
-          - name: Deploy to staging environment
+            uses: actions/checkout@v3.5.2
+          - name: Clone python-greetings repository
+            uses: actions/checkout@v3.5.2
+            with:
+              repository: rtwork321/python-greetings
+              path: python-greetings
+          - name: Stop existing staging environment
             run: |
+              pm2 delete greetings-app-staging; exit 0
+            working-directory: python-greetings
+          - name: Start staging environment
+            run: |
+              $env:PORT = 7002
+              pm2 start app.py --name greetings-app-staging
+            working-directory: python-greetings
          
 
     tests-on-staging:
@@ -80,9 +92,18 @@ jobs:
         needs: [deploy-to-staging]
         steps:
           - name: Checkout repository
-            uses: actions/checkout@v2
-          - name: Run tests on staging environment
-            run: |
+            uses: actions/checkout@v3.5.2
+          - name: Clone course-js-api-framework repository
+            uses: actions/checkout@v3.5.2
+            with:
+              repository: rtwork321/course-js-api-framework
+              path: course-js-api-framework
+          - name: Install dependencies
+            run: npm install
+            working-directory: course-js-api-framework
+          - name: Run tests
+            run: npm run greetings greetings_stg
+            working-directory: course-js-api-framework
 
     deploy-to-preprod:
         name: Deploy to Preprod
