@@ -27,9 +27,20 @@ jobs:
         needs: [install-pip-deps]
         steps:
           - name: Checkout repository
-            uses: actions/checkout@v2
-          - name: Deploy to development environment
+            uses: actions/checkout@v3.5.2
+          - name: Clone python-greetings repository
+            uses: actions/checkout@v3.5.2
+            with:
+              repository: rtwork321/python-greetings
+              path: python-greetings
+          - name: Stop existing development environment
             run: |
+              pm2 delete greetings-app-dev || true
+            working-directory: python-greetings
+          - name: Start development environment
+            run: |
+              pm2 start app.py --name greetings-app-dev -- --port 7001
+            working-directory: python-greetings
           
 
     tests-on-dev:
