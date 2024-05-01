@@ -1,4 +1,4 @@
-name: Piegādes konveijera izveide izmantojot rīku Github Actions
+name: Python Greetings Delivery Pipeline
 
 on:
     push:
