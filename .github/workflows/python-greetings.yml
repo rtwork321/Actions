@@ -1,4 +1,4 @@
-name: Piegādes konveijera izveide izmantojot rīku Github Actions
+name: Github Actions
 
 on:
     push:
